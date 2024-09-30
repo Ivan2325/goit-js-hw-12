@@ -98,9 +98,16 @@ letter-spacing: 0.04em;
 color: #fff;
     border-radius: 8px;
     padding: 8px 16px;
-    width: 91px;
-    height: 40px;
     background: #4e75ff;
 border: none;
+}
+
+
+.more-btn {
+    margin-top: 32px;
+}
+
+.hidden {
+    display: none;
 }
 

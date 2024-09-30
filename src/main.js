@@ -2,6 +2,7 @@
 import { fetchImages } from './js/paxabay-api.js';
 import { renderImages, clearGallery } from './js/render-functions.js';
 import iziToast from "izitoast";
+import axios from "axios" ;
 import "izitoast/dist/css/iziToast.min.css";
 
 const searchForm = document.getElementById('search-form');
