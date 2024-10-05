@@ -7,6 +7,7 @@ import "izitoast/dist/css/iziToast.min.css";
 
 const searchForm = document.getElementById('search-form');
 const loader = document.querySelector('.loader');
+const loadMoreBtn = document.querySelector('.load-more'); 
 let page = 1;
 let query = '';
 
