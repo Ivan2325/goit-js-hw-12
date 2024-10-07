@@ -16,6 +16,7 @@ loadMoreBtn.addEventListener('click', onLoadMore);
 function onSearch(event) {
   event.preventDefault();
   query = event.target.elements.searchQuery.value.trim();
+  
   if (!query) {
     iziToast.warning({
       title: 'Warning',
@@ -26,16 +27,16 @@ function onSearch(event) {
 
   clearGallery();
   page = 1;
-  loadMoreBtn.classList.add('hidden');  // Зміна: Приховуємо кнопку перед новим запитом
+  loadMoreBtn.classList.add('hidden');  // Приховуємо кнопку перед новим пошуком
   fetchAndRenderImages();
 }
 
 function fetchAndRenderImages() {
-  showLoader();
+  showLoader();  // Показуємо лоадер перед початком запиту
   
   fetchImages(query, page)
     .then(data => {
-      hideLoader();
+      hideLoader();  // Ховаємо лоадер після отримання результатів
 
       if (data.hits.length === 0) {
         iziToast.error({
@@ -45,19 +46,29 @@ function fetchAndRenderImages() {
         return;
       }
 
-      renderImages(data.hits);
-      
+      renderImages(data.hits);  // Рендеримо зображення
+
       iziToast.success({
         title: 'Success',
         message: `Found ${data.totalHits} images`,
       });
       
-      if (page === 1) { // Зміна: Показуємо кнопку після першого запиту
-        loadMoreBtn.classList.remove('hidden');
+      // Якщо є ще результати для завантаження
+      if (data.hits.length === 15) {  // Перевірка на те, чи є ще результати
+        loadMoreBtn.classList.remove('hidden');  // Показуємо кнопку "Load More"
+      } else {
+        loadMoreBtn.classList.add('hidden');  // Ховаємо кнопку, якщо результатів більше немає
       }
+
+      // Скрол на висоту двох карток
+      const cardHeight = document.querySelector('.gallery').firstElementChild.getBoundingClientRect().height;
+      window.scrollBy({
+        top: cardHeight * 2,
+        behavior: 'smooth'
+      });
     })
     .catch(error => {
-      hideLoader();
+      hideLoader();  // Ховаємо лоадер у випадку помилки
       iziToast.error({
         title: 'Error',
         message: error.message,
@@ -67,13 +78,14 @@ function fetchAndRenderImages() {
 
 function onLoadMore() {
   page += 1;
-  fetchAndRenderImages();
+  loadMoreBtn.classList.add('hidden');  // Ховаємо кнопку під час завантаження
+  fetchAndRenderImages();  // Завантажуємо наступну сторінку
 }
 
 function showLoader() {
-  loader.style.display = 'block';
+  loader.style.display = 'block';  // Показуємо лоадер
 }
 
 function hideLoader() {
-  loader.style.display = 'none';
+  loader.style.display = 'none';  // Ховаємо лоадер
 }

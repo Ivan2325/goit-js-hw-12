@@ -106,6 +106,21 @@ border: none;
   .loader {
     text-align: center;
     margin-top: 20px;
+    border: 6px solid #f3f3f3;
+  border-top: 6px solid #3498db;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  #loader {
+    display: none;
   }
   
   .load-more {
@@ -114,9 +129,16 @@ border: none;
     padding: 10px 20px;
     background-color: #007bff;
     color: white;
-    border: none;
-    border-radius: 5px;
     cursor: pointer;
+    padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  }
+
+  .load-more:disabled {
+    background-color: #b3b3b3;
+    cursor: not-allowed;
   }
   
   .load-more:hover {
