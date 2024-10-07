@@ -27,16 +27,16 @@ function onSearch(event) {
 
   clearGallery();
   page = 1;
-  loadMoreBtn.classList.add('hidden');  // Приховуємо кнопку перед новим пошуком
+  loadMoreBtn.classList.add('hidden'); 
   fetchAndRenderImages();
 }
 
 function fetchAndRenderImages() {
-  showLoader();  // Показуємо лоадер перед початком запиту
+  showLoader();  
   
   fetchImages(query, page)
     .then(data => {
-      hideLoader();  // Ховаємо лоадер після отримання результатів
+      hideLoader();  
 
       if (data.hits.length === 0) {
         iziToast.error({
@@ -46,21 +46,19 @@ function fetchAndRenderImages() {
         return;
       }
 
-      renderImages(data.hits);  // Рендеримо зображення
+      renderImages(data.hits);  
 
       iziToast.success({
         title: 'Success',
         message: `Found ${data.totalHits} images`,
       });
       
-      // Якщо є ще результати для завантаження
-      if (data.hits.length === 15) {  // Перевірка на те, чи є ще результати
-        loadMoreBtn.classList.remove('hidden');  // Показуємо кнопку "Load More"
+      if (data.hits.length === 15) { 
+        loadMoreBtn.classList.remove('hidden');  
       } else {
-        loadMoreBtn.classList.add('hidden');  // Ховаємо кнопку, якщо результатів більше немає
+        loadMoreBtn.classList.add('hidden');  
       }
 
-      // Скрол на висоту двох карток
       const cardHeight = document.querySelector('.gallery').firstElementChild.getBoundingClientRect().height;
       window.scrollBy({
         top: cardHeight * 2,
@@ -68,7 +66,7 @@ function fetchAndRenderImages() {
       });
     })
     .catch(error => {
-      hideLoader();  // Ховаємо лоадер у випадку помилки
+      hideLoader();  
       iziToast.error({
         title: 'Error',
         message: error.message,
@@ -78,14 +76,14 @@ function fetchAndRenderImages() {
 
 function onLoadMore() {
   page += 1;
-  loadMoreBtn.classList.add('hidden');  // Ховаємо кнопку під час завантаження
-  fetchAndRenderImages();  // Завантажуємо наступну сторінку
+  loadMoreBtn.classList.add('hidden');  
+  fetchAndRenderImages();  
 }
 
 function showLoader() {
-  loader.style.display = 'block';  // Показуємо лоадер
+  loader.style.display = 'block';  
 }
 
 function hideLoader() {
-  loader.style.display = 'none';  // Ховаємо лоадер
+  loader.style.display = 'none';  
 }

@@ -28,7 +28,7 @@ export function renderImages(images) {
     )
     .join('');
 
-  gallery.insertAdjacentHTML('beforeend', markup); // Додаємо нові елементи після існуючих
+  gallery.insertAdjacentHTML('beforeend', markup); 
 }
 
 
